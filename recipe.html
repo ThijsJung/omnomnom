@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Omnomnom</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+
+        <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+        <link rel="manifest" href="img/favicon/site.webmanifest">
+
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="js/demo.js"></script>
+
+        <!--Cognito JavaScript-->
+        <!-- <script src="js/amazon-cognito-identity.min.js"></script>  
+            <script src="js/config.js"></script> -->
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8" id="header">
+                    <a href="index.html"><h1>Omnomnom</h1></a>
+                </div>
+                <!-- <div class="col-sm-4" id="header">
+                    <button type="button" onclick="signOut()">Sign out</button>
+                </div> -->
+            </div>
+            <div class="row">
+                <div class="col-sm-12" id="recipe">
+                    <h2 id="recipe_title"></h2>
+                    <div id="recipe_description"></div>
+                    <img id="recipe_image" alt="Recipe picture", width="500">
+                    <h3>Ingredients</h3>
+                    <div id="hungry_people_count">
+                        How many people will you serve?    
+                        <select id="user_run" onChange=get_and_fill_ingredients(recipeId,this.value)>
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5>5</option>
+                            <option value=6>6</option>
+                            <option value=7>7</option>
+                            <option value=8>8</option>
+                        </select>
+                    </div>
+                    <ul id="ingredients_list"></ul>
+                    <button type="button" onclick=alert()>Export to Google Keep</button>
+                    <h3>Preparation</h3>
+                    <ol id="preparation"></ol>
+                    <h3>Protips</h3>
+                    <ul id="pro_tips"></ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var recipeId = urlParams.get('recipe_id');
+    console.log(recipeId);
+    get_recipe_data(recipeId);
+</script>

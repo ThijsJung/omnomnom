@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <title>Omnomnom</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+        <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+        <link rel="manifest" href="img/favicon/site.webmanifest">
+
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/demo.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8" id="header">
+                    <a href="index.html"><h1>Omnomnom</h1></a>
+                </div>
+                <!-- <div class="col-sm-4" id="header">
+                    <button type="button" onclick="signOut()">Sign out</button>
+                </div> -->
+            </div>
+            <div class="row">
+                <div class="col-sm-12" id="recipe">
+                    <h2 id="page_title">Who's hungry?</h2>
+                    <div id="page_description">It's <span class="period_name"></span> time! Check out these <span class="period_name"></span> recipes.</div>
+                    <br>
+                    <div id="recipe_examples">
+                        <ul id="recipe_list"></ul>
+                    </div>
+                    <br>
+                    <div>
+                        <h4>Didn't find anything you like?</h4>
+                        Dive into the collection here!
+                        <br>
+                        <input type="text" id="searchRecipe" placeholder="Search...">
+                        <button onclick=alert()>Search</button>
+                    </div>
+                    <br>
+                    <div>
+                        <h4>Or, if you're admin, go ahead and</h4>
+                        <br>
+                        <div>
+                            <a href="create_recipe.html">
+                                <button type="button">Create a new recipe</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        load_recipe_list();
+        fill_period_name();
+    </script>
+</html>
