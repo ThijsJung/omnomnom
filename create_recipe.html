@@ -6,23 +6,68 @@
     </head>
     <body>
         <form action="/my-handling-form-page" method="post">
-            <ul>
-                <li>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="user_name">
-                </li>
-                <li>
-                <label for="mail">E-mail:</label>
-                <input type="email" id="mail" name="user_mail">
-                </li>
-                <li>
-                <label for="msg">Message:</label>
-                <textarea id="msg" name="user_message"></textarea>
-                </li>
-                <li class="button">
-                        <button type="submit">Send your message</button>
-                      </li>
-            </ul>
-            </form>
+            <h3>Ingredients</h3>
+            <div>
+                <ul id="ingredient_list"></ul>
+            </div>
+            <button type="submit">Save</button>
+        </form>
     </body>
 </html>
+
+<script>
+    function success(){ console.log("Yeeei")};
+
+    function create_ingredient_item(ingredient_id){
+        console.log(ingredient_id)
+    }
+    function add_ingredient(){
+        let ingredient_list = document.getElementById("ingredient_list");
+        let current_ingredient_id = ingredient_list.getElementsByTagName("li").length;
+        let incremented_ingredient_id = current_ingredient_id + 1;
+        console.log(incremented_ingredient_id);
+        
+        // Create ingredient list item
+        let ingredient = document.createElement("li");
+
+        let ingredient_fields = [
+            {"ui_name": "Ingredient", "label_name": "name"},
+            {"ui_name": "Amount", "label_name": "quantity"},
+            {"ui_name": "Unit", "label_name": "unit"}
+        ];
+        // Create three fields for every attribute of the ingredient
+        ingredient_fields.forEach(function(element){
+            let next_ingredient_id = "ingredient_" + element.label_name + "_" + incremented_ingredient_id;
+            // Create ingredient label
+            let ingredient_label = document.createElement("label");
+            ingredient_label.htmlFor = next_ingredient_id;
+            ingredient_label.innerHTML = element.ui_name + ":";
+            ingredient.appendChild(ingredient_label);
+            
+            // Create ingredient text input
+            let ingredient_input = document.createElement("input");
+            ingredient_input.id = next_ingredient_id;
+            ingredient_input.setAttribute("type", "text");
+            ingredient_input.setAttribute("name", next_ingredient_id);
+            ingredient.appendChild(ingredient_input);
+        });
+        let add_button = document.createElement("button");
+        add_button.innerHTML = "+";
+        add_button.id = "ingredient_button_" + incremented_ingredient_id;
+        add_button.type = "button";
+        add_button.setAttribute("onClick", "add_ingredient()");
+        ingredient.appendChild(add_button);
+        ingredient_list.appendChild(ingredient);
+
+        // Turn + on previous item into -
+        if(incremented_ingredient_id > 1){
+            let prev_button_id = "ingredient_button_" + current_ingredient_id;
+            console.log(prev_button_id);
+            let prev_button = document.getElementById(prev_button_id);
+            prev_button.innerHTML = "-";
+        }
+
+    }
+    console.log("Init");
+    add_ingredient()
+</script>

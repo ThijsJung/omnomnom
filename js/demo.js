@@ -1,3 +1,6 @@
+// var baseUrl = 'https://www.thijsjung.nl/omnomnom/';
+var baseUrl = '';
+
 function load_recipe(recipe_data){
     console.log(recipe_data);
     set_title(recipe_data.title);
@@ -21,7 +24,7 @@ function set_description(recipe_description){
 }
 
 function get_and_fill_ingredients(recipeId, hungry_people_count){
-    var url = 'https://www.thijsjung.nl/omnomnom/recipes/' + recipeId + ".json";
+    var url = baseUrl + 'recipes/' + recipeId + ".json";
     callAPI(url, fill_ingredients);
 }
 
@@ -78,19 +81,19 @@ function callAPI(url, cFunction) {
 }
 
 function get_recipe_data(recipe_id){
-    var url = 'https://www.thijsjung.nl/omnomnom/recipes/' + recipe_id + ".json";
+    var url = baseUrl + 'recipes/' + recipe_id + ".json";
     callAPI(url, load_recipe);
 }
 
 function load_recipe_list(){
-    var url = 'https://www.thijsjung.nl/omnomnom/recipes/recipes.json';
+    var url = baseUrl + 'recipes/recipes.json';
     callAPI(url, function(response){
         var recipes = response;
         for (var i = 0; i < recipes.length; i++) {
             var recipe = recipes[i];
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = 'https://www.thijsjung.nl/omnomnom/recipe.html?recipe_id=' + recipe.id;
+            a.href = baseUrl + 'recipe.html?recipe_id=' + recipe.id;
             a.textContent = recipe.name;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);
@@ -117,4 +120,8 @@ function fill_period_name(){
         console.log(el.tagName);
         el.textContent = period_name;
     });
+}
+
+function log_it(data){
+    console.log(data);
 }
