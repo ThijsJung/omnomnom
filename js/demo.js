@@ -1,7 +1,6 @@
 function load_recipe(recipe_data){
     console.log(recipe_data);
-    set_title(recipe_data.title);
-    set_description(recipe_data.description);
+    fill_recipe_description(recipe_data.title, recipe_data.description);
     fill_ingredients(recipe_data.ingredients, 1);
     fill_preparation(recipe_data.preparation);
     if('pro_tips' in recipe_data){
@@ -15,9 +14,16 @@ function set_title(recipe_title){
     document.getElementById("recipe_title").appendChild(title);
 }
 
-function set_description(recipe_description){
-    var description = document.createTextNode(recipe_description);
-    document.getElementById("recipe_description").appendChild(description);
+function fill_recipe_description(title, description){
+    let recipe_description = document.getElementById("recipe_description");
+
+    let recipe_title = document.createElement("h2");
+    recipe_title.innerHTML = title;
+    recipe_title.id = "recipe_title";
+    recipe_description.appendChild(recipe_title);
+
+    let recipe_description_el = document.createTextNode(description);
+    recipe_description.appendChild(recipe_description_el);
 }
 
 function get_and_fill_ingredients(recipeId, hungry_people_count){
