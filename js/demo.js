@@ -61,7 +61,11 @@ function fill_pro_tips(pro_tips){
 }
 
 function add_image(imageUrl){
-    document.getElementById("recipe_image").src=imageUrl;
+    let image_el = document.createElement("img");
+    image_el.src = imageUrl;
+    image_el.alt = "Recipe picture";
+    image_el.width = 500;
+    document.getElementById("recipe_image_container").appendChild(image_el);
 }
 
 // Callback function
