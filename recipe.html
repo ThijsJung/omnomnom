@@ -35,10 +35,10 @@
             <h3>Protips</h3>
             <ul id="pro_tips"></ul>
         </div>
+        <script>
+            var urlParams = new URLSearchParams(window.location.search);
+            var recipeId = urlParams.get('recipe_id');
+            get_recipe_data(recipeId);
+        </script>
     </body>
-    <script>
-        var urlParams = new URLSearchParams(window.location.search);
-        var recipeId = urlParams.get('recipe_id');
-        get_recipe_data(recipeId);
-    </script>
 </html>
