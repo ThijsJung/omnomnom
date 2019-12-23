@@ -14,19 +14,17 @@
             <div id="recipe_description"></div>
             <div id="recipe_image_container"></div>
             <h3>Ingredients</h3>
-            <div id="hungry_people_count">
-                How many people will you serve?    
-                <select id="user_run" onChange=get_and_fill_ingredients(recipeId,this.value)>
-                    <option value=1>1</option>
-                    <option value=2>2</option>
-                    <option value=3>3</option>
-                    <option value=4>4</option>
-                    <option value=5>5</option>
-                    <option value=6>6</option>
-                    <option value=7>7</option>
-                    <option value=8>8</option>
-                </select>
-            </div>
+            <label for="hungry_people_count">How many people will you serve?</label>
+            <select id="hungry_people_count" onChange=recalculate_ingredients(this.value)>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4 selected>4</option>
+                <option value=5>5</option>
+                <option value=6>6</option>
+                <option value=7>7</option>
+                <option value=8>8</option>
+            </select>
             <ul id="ingredients_list"></ul>
             <button type="button" onclick="copyToClipboard()">Copy ingredient list</button>
             <h3>Preparation</h3>
@@ -34,6 +32,6 @@
             <h3>Protips</h3>
             <ul id="pro_tips"></ul>
         </div>
-        <script type="text/javascript" src="js/demo.js"></script>
+        <script src="js/demo.js"></script>
     </body>
 </html>
