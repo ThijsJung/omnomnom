@@ -1,17 +1,18 @@
+var urlParams = new URLSearchParams(window.location.search);
+var recipeId = urlParams.get('recipe_id');
+var recipeData = null;
+
+var hungry_people_count = 4;
+
 function load_recipe(recipe_data){
-    set_title(recipe_data.title);
-    set_description(recipe_data.description);
-    fill_ingredients(recipe_data.ingredients, 1);
+    recipeData = recipe_data;
+    fill_recipe_description(recipe_data.title, recipe_data.description);
+    fill_ingredients(recipe_data.ingredients, recipe_data.portion_size, hungry_people_count);
     fill_preparation(recipe_data.preparation);
     if('pro_tips' in recipe_data){
         fill_pro_tips(recipe_data.pro_tips);
     }
     add_image(recipe_data.image_url);
-}
-
-function set_title(recipe_title){
-    var title = document.createTextNode(recipe_title);
-    document.getElementById("recipe_title").appendChild(title);
 }
 
 function fill_recipe_description(title, description){
@@ -26,17 +27,17 @@ function fill_recipe_description(title, description){
     recipe_description.appendChild(recipe_description_el);
 }
 
-function get_and_fill_ingredients(recipeId, hungry_people_count){
-    var url = 'https://www.thijsjung.nl/omnomnom/recipes/' + recipeId + ".json";
-    callAPI(url, fill_ingredients);
+function recalculate_ingredients(hungry_people_count){
+    fill_ingredients(recipeData.ingredients, recipeData.portion_size, hungry_people_count);
 }
 
-function fill_ingredients(ingredients, hungry_people_count){
+function fill_ingredients(ingredients, portion_size, hungry_people_count){
+    let ratio = hungry_people_count / portion_size;
     document.getElementById("ingredients_list").innerHTML = "";
     for (var i = 0; i < ingredients.length; i++) {
         var ingredient = ingredients[i];
         var unit = ingredient.unit;
-        var normalized_quantity = hungry_people_count * ingredient.quantity;
+        var normalized_quantity = ratio * ingredient.quantity;
         var text = normalized_quantity + " " + ingredient.name;
         if (ingredient.unit){
             text = ingredient.name + ", " + normalized_quantity + " " + unit;
@@ -152,6 +153,4 @@ function copyToClipboard(){
     document.execCommand("copy");
     document.body.removeChild(textArea);
 }
-var urlParams = new URLSearchParams(window.location.search);
-var recipeId = urlParams.get('recipe_id');
 get_recipe_data(recipeId);
