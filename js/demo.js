@@ -2,12 +2,12 @@ var urlParams = new URLSearchParams(window.location.search);
 var recipeId = urlParams.get('recipe_id');
 var recipeData = null;
 
-var hungry_people_count = 4;
+var default_hungry_people_count = 4;
 
 function load_recipe(recipe_data){
     recipeData = recipe_data;
     fill_recipe_description(recipe_data.title, recipe_data.description);
-    fill_ingredients(recipe_data.ingredients, recipe_data.portion_size, hungry_people_count);
+    fill_ingredients(recipe_data.ingredients, recipe_data.portion_size, default_hungry_people_count);
     fill_preparation(recipe_data.preparation);
     if('pro_tips' in recipe_data){
         fill_pro_tips(recipe_data.pro_tips);
