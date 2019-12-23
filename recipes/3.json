@@ -57,6 +57,11 @@
             "unit": "scheutjes"
         },
         {
+            "name": "Sesam olie",
+            "quantity": 2,
+            "unit": "scheutjes"
+        },
+        {
             "name": "Mie",
             "quantity": 200,
             "unit": "gram"
@@ -67,9 +72,9 @@
         "Laat de pan goed heet worden, voeg de olijfolie, de koriander, de gember, de bosui en de peper toe. Wok 30 seconden tot een minuut.",
         "Voeg de rest van de groenten toe en blijf de groenten regelmatig door elkaar bewegen.",
         "Rol de limoen op de snijplank en snij in tweeen",
-        "Voeg de honing, de oestersaus en de ... (secret ingredient!) toe. Knijp een halve limoen uit boven de pan",
+        "Voeg de honing, de oestersaus en de sesam olie toe. Knijp een halve limoen uit boven de pan",
         "Voeg de gekookte mie toe en blijf goed roeren.",
-        "Proef en voeg naar smaak meer honing/oestersaus/.../limoen toe."
+        "Proef en voeg naar smaak meer honing/oestersaus/sesam olie/limoen toe."
     ],
     "image_url": "img/stir_fry.jpg"
 }
