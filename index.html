@@ -1,45 +1,39 @@
 <!DOCTYPE html>
-<html>
-    <head lang="en">
+<html lang="en-US">
+    <head>
         <title>Omnomnom</title>
         <meta charset="utf-8" />
-        <script type="text/javascript" src="js/demo.js"></script>
+        <script src="js/demo.js"></script>
     </head>
 
     <body>
         <div>
-            <a href="index.html"><h1>Omnomnom</h1></a>
+            <a href="index.html" title="Omnomnom Home page"><h1>Omnomnom</h1></a>
         </div>
         <div>
             <h2 id="page_title">Who's hungry?</h2>
-                <div id="page_description">It's <span class="period_name"></span> time! Check out these <span class="period_name"></span> recipes.</div>
+            <div id="page_description">It's <span class="period_name"></span> time! Check out these <span class="period_name"></span> recipes.</div>
+            <br>
+            <div id="recipe_examples">
+                <ul id="recipe_list"></ul>
+            </div>
+            <br>
+            <div>
+                <h4>Don't see anything you like?</h4>
+                Dive into the collection here!
                 <br>
-                <div id="recipe_examples">
-                    <ul id="recipe_list"></ul>
-                </div>
-                <br>
-                <div>
-                    <h4>Didn't find anything you like?</h4>
-                    Dive into the collection here!
-                    <br>
-                    <input type="text" id="searchRecipe" placeholder="Search...">
-                    <button onclick=alert()>Search</button>
-                </div>
-                <br>
-                <div>
-                    <h4>Or, if you're admin, go ahead and</h4>
-                    <br>
-                    <div>
-                        <a href="create_recipe.html">
-                            <button type="button">Create a new recipe</button>
-                        </a>
-                    </div>
-                </div>
+                <input type="text" id="searchRecipe" placeholder="Search...">
+                <button onclick=alert()>Search</button>
+            </div>
+            <br>
+            <div>
+                <h4>Save your creation?</h4>
+                <p>If you're admin, go ahead and <a href="create_recipe.html">create a new recipe.</a></p>
             </div>
         </div>
+        <script>
+            load_recipe_list();
+            fill_period_name();
+        </script>
     </body>
-    <script>
-        load_recipe_list();
-        fill_period_name();
-    </script>
 </html>

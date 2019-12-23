@@ -14,9 +14,16 @@ function set_title(recipe_title){
     document.getElementById("recipe_title").appendChild(title);
 }
 
-function set_description(recipe_description){
-    var description = document.createTextNode(recipe_description);
-    document.getElementById("recipe_description").appendChild(description);
+function fill_recipe_description(title, description){
+    let recipe_description = document.getElementById("recipe_description");
+
+    let recipe_title = document.createElement("h2");
+    recipe_title.innerHTML = title;
+    recipe_title.id = "recipe_title";
+    recipe_description.appendChild(recipe_title);
+
+    let recipe_description_el = document.createTextNode(description);
+    recipe_description.appendChild(recipe_description_el);
 }
 
 function get_and_fill_ingredients(recipeId, hungry_people_count){
@@ -61,7 +68,11 @@ function fill_pro_tips(pro_tips){
 }
 
 function add_image(imageUrl){
-    document.getElementById("recipe_image").src=imageUrl;
+    let image_el = document.createElement("img");
+    image_el.src = imageUrl;
+    image_el.alt = "Recipe picture";
+    image_el.width = 500;
+    document.getElementById("recipe_image_container").appendChild(image_el);
 }
 
 // Callback function
@@ -90,7 +101,7 @@ function load_recipe_list(){
             var recipe = recipes[i];
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = 'https://www.thijsjung.nl/omnomnom/recipe.html?recipe_id=' + recipe.id;
+            a.href = 'recipe.html?recipe_id=' + recipe.id;
             a.textContent = recipe.name;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);
@@ -141,3 +152,6 @@ function copyToClipboard(){
     document.execCommand("copy");
     document.body.removeChild(textArea);
 }
+var urlParams = new URLSearchParams(window.location.search);
+var recipeId = urlParams.get('recipe_id');
+get_recipe_data(recipeId);
