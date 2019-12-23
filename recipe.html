@@ -4,42 +4,36 @@
         <title>Omnomnom</title>
         <meta charset="utf-8" />
 
-        <script type="text/javascript" src="js/demo.js"></script>
     </head>
     <body>
         <div>
             <a href="index.html"><h1>Omnomnom</h1></a>
         </div>
-            <div>
-                <h2 id="recipe_title"></h2>
-                <div id="recipe_description"></div>
-                <img id="recipe_image" alt="Recipe picture", width="500">
-                <h3>Ingredients</h3>
-                <div id="hungry_people_count">
-                    How many people will you serve?    
-                    <select id="user_run" onChange=get_and_fill_ingredients(recipeId,this.value)>
-                        <option value=1>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
-                        <option value=4>4</option>
-                        <option value=5>5</option>
-                        <option value=6>6</option>
-                        <option value=7>7</option>
-                        <option value=8>8</option>
-                    </select>
-                </div>
-                <ul id="ingredients_list"></ul>
-                <button type="button" onclick="copyToClipboard()">Copy ingredient list</button>
-                <h3>Preparation</h3>
-                <ol id="preparation"></ol>
-                <h3>Protips</h3>
-                <ul id="pro_tips"></ul>
+        <div>
+            <h2 id="recipe_title"></h2>
+            <div id="recipe_description"></div>
+            <img id="recipe_image" alt="Recipe picture", width="500">
+            <h3>Ingredients</h3>
+            <div id="hungry_people_count">
+                How many people will you serve?    
+                <select id="user_run" onChange=get_and_fill_ingredients(recipeId,this.value)>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                </select>
             </div>
+            <ul id="ingredients_list"></ul>
+            <button type="button" onclick="copyToClipboard()">Copy ingredient list</button>
+            <h3>Preparation</h3>
+            <ol id="preparation"></ol>
+            <h3>Protips</h3>
+            <ul id="pro_tips"></ul>
         </div>
+        <script type="text/javascript" src="js/demo.js"></script>
     </body>
 </html>
-<script>
-    var urlParams = new URLSearchParams(window.location.search);
-    var recipeId = urlParams.get('recipe_id');
-    get_recipe_data(recipeId);
-</script>

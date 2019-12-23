@@ -90,7 +90,7 @@ function load_recipe_list(){
             var recipe = recipes[i];
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = 'https://www.thijsjung.nl/omnomnom/recipe.html?recipe_id=' + recipe.id;
+            a.href = 'recipe.html?recipe_id=' + recipe.id;
             a.textContent = recipe.name;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);
@@ -141,3 +141,6 @@ function copyToClipboard(){
     document.execCommand("copy");
     document.body.removeChild(textArea);
 }
+var urlParams = new URLSearchParams(window.location.search);
+var recipeId = urlParams.get('recipe_id');
+get_recipe_data(recipeId);
