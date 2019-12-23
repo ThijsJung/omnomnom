@@ -4,13 +4,13 @@
         <title>Omnomnom</title>
         <meta charset="utf-8" />
 
-        <script src="js/demo.js"></script>
     </head>
     <body>
         <div>
             <a href="index.html"><h1>Omnomnom</h1></a>
         </div>
         <div>
+            <h2 id="recipe_title"></h2>
             <div id="recipe_description"></div>
             <div id="recipe_image_container"></div>
             <h3>Ingredients</h3>
@@ -28,16 +28,12 @@
                 </select>
             </div>
             <ul id="ingredients_list"></ul>
-            <button type="button" onclick=alert()>Export to Google Keep</button>
+            <button type="button" onclick="copyToClipboard()">Copy ingredient list</button>
             <h3>Preparation</h3>
             <ol id="preparation"></ol>
             <h3>Protips</h3>
             <ul id="pro_tips"></ul>
         </div>
-        <script>
-            var urlParams = new URLSearchParams(window.location.search);
-            var recipeId = urlParams.get('recipe_id');
-            get_recipe_data(recipeId);
-        </script>
+        <script type="text/javascript" src="js/demo.js"></script>
     </body>
 </html>

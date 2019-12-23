@@ -1,6 +1,6 @@
 function load_recipe(recipe_data){
-    console.log(recipe_data);
-    fill_recipe_description(recipe_data.title, recipe_data.description);
+    set_title(recipe_data.title);
+    set_description(recipe_data.description);
     fill_ingredients(recipe_data.ingredients, 1);
     fill_preparation(recipe_data.preparation);
     if('pro_tips' in recipe_data){
@@ -42,6 +42,7 @@ function fill_ingredients(ingredients, hungry_people_count){
             text = ingredient.name + ", " + normalized_quantity + " " + unit;
         }
         var li = document.createElement("li");
+        li.className = "ingredient";
         var t = document.createTextNode(text);
         li.appendChild(t);
         document.getElementById("ingredients_list").appendChild(li);
@@ -100,7 +101,7 @@ function load_recipe_list(){
             var recipe = recipes[i];
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = 'https://www.thijsjung.nl/omnomnom/recipe.html?recipe_id=' + recipe.id;
+            a.href = 'recipe.html?recipe_id=' + recipe.id;
             a.textContent = recipe.name;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);
@@ -123,8 +124,34 @@ function fill_period_name(){
     }
     var elements = document.getElementsByClassName("period_name");
     Array.prototype.forEach.call(elements, function(el) {
-        // Do stuff here
-        console.log(el.tagName);
         el.textContent = period_name;
     });
 }
+
+function copyToClipboard(){
+    // Copy invisible text by creating a temporary textArea.
+    let ingredients = document.getElementsByClassName("ingredient");
+    let textArea = document.createElement("textarea");
+    let ingredient_count = ingredients.length;
+    for (let i = 0; i < ingredient_count; i++) {
+        let ingredient = ingredients[i];
+        textArea.value += ingredient.innerHTML
+        // Add newlines to all ingredients except the last one
+        if(i < ingredient_count - 1){
+            textArea.value += "\n";
+        }
+    }
+    document.body.appendChild(textArea);
+    
+    /* Select the text field */
+    textArea.focus();
+    textArea.select();
+    // textArea.setSelectionRange(0, 99999); /*For mobile devices, but do we need it?*/
+    
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+}
+var urlParams = new URLSearchParams(window.location.search);
+var recipeId = urlParams.get('recipe_id');
+get_recipe_data(recipeId);
