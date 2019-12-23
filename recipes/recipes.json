@@ -10,5 +10,9 @@
     {
         "id": 3,
         "name": "Stir fry a la Jamie"
+    },
+    {
+        "id": 4,
+        "name": "Quick hummus"
     }
 ]
