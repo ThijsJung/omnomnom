@@ -78,15 +78,15 @@ function add_image(imageUrl){
 
 // Callback function
 function callAPI(url, cFunction) {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
             var responseJSON = JSON.parse(xhttp.responseText);
-			cFunction(responseJSON);
-		}
-	};
-	xhttp.open("GET", url, true);
-	xhttp.send();
+            cFunction(responseJSON);
+        }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.send();
 }
 
 function get_recipe_data(recipe_id){
