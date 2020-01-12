@@ -19,7 +19,7 @@ function fill_recipe_description(title, description){
     let recipe_description = document.getElementById("recipe_description");
 
     let recipe_title = document.createElement("h2");
-    recipe_title.innerHTML = title;
+    recipe_title.innerText = title;  //TODO: Escape input
     recipe_title.id = "recipe_title";
     recipe_description.appendChild(recipe_title);
 
