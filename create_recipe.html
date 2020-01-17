@@ -35,9 +35,17 @@
                 <h3>Ingredients</h3>
                 <ul id="ingredient_list"></ul>
                 <h3>Preparation</h3>
-                <ol id="preparation"></ol>
+                <ol id="preparation">
+                    <li>
+                        <textarea cols="30" rows="1" class="recipePreparation"></textarea><button type="button">+</button>
+                    </li>
+                </ol>
                 <h3>Protips</h3>
-                <ul id="pro_tips"></ul>
+                <ul id="pro_tips">
+                    <li>
+                        <textarea cols="30" rows="1" class="recipeProTips"></textarea><button type="button">+</button>
+                    </li>
+                </ul>
                 <input type="submit" value="Save">
             </form>
         </div>
@@ -72,7 +80,7 @@
         recipe["ingredients"] = ingredients;
 
         let result_div = document.getElementById("result");
-        result_div.innerHTML = "Your recipe is \n" + JSON.stringify(recipe);
+        result_div.innerHTML = "Saving your recipe is not yet supported. Here's the JSON" + "<br>" + JSON.stringify(recipe);
     };
 
     function add_ingredient(){
