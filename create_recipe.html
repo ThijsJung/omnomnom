@@ -14,22 +14,23 @@
                 </div>
                 <div>
                     <label for="recipeDescription">Description:</label>
-                    <input class="recipeDetails" name="recipeDescription" data-attribute_name="description">
+                    <textarea cols="30" rows="8" class="recipeDetails" name="recipeDescription" data-attribute_name="description"></textarea>
                 </div>
                 <div>
-                    <label for="preparationTime">Preparation time:</label>
-                    <input class="recipeDetails" name="preparationTime" data-attribute_name="prep_time">
+                    <label for="preparationTime">Preparation time (hour:minute):</label>
+                    <input class="recipeDetails" name="preparationTime" data-attribute_name="prep_time" type="time">
                 </div>
                 <div>
-                    <label for="CookTime">Number of portions:</label>
-                    <input class="recipeDetails" name="CookTime" data-attribute_name="cook_time">
+                    <label for="CookTime">Cooking time (hour:minute)</label>
+                    <input class="recipeDetails" name="CookTime" data-attribute_name="cook_time" type="time">
                 </div>
                 <div>
                     <label for="hungryPeopleCount">Number of portions:</label>
-                    <input class="recipeDetails" name="hungryPeopleCount" data-attribute_name="portion_size">
+                    <input class="recipeDetails" name="hungryPeopleCount" data-attribute_name="portion_size" type="number">
                 </div>
                 <div>
-                    <label for="recipeImage"></label>Upload picture here<button>Open</button>
+                    <label for="recipeImage">Add picture</label>
+                    <input name="recipeImage" data-attribute_name="image_url" type="file">
                 </div>
                 <h3>Ingredients</h3>
                 <ul id="ingredient_list"></ul>
@@ -40,6 +41,7 @@
                 <input type="submit" value="Save">
             </form>
         </div>
+        <div id="result"></div>
     </body>
 </html>
 
@@ -69,7 +71,8 @@
         }
         recipe["ingredients"] = ingredients;
 
-        console.log(recipe);
+        let result_div = document.getElementById("result");
+        result_div.innerHTML = "Your recipe is \n" + JSON.stringify(recipe);
     };
 
     function add_ingredient(){
@@ -109,7 +112,7 @@
         add_button.setAttribute("onClick", "add_ingredient()");
         ingredient.appendChild(add_button);
         ingredient_list.appendChild(ingredient);
-
+        
         // Turn + on previous item into -
         if(incremented_ingredient_id > 1){
             let prev_button_id = "ingredient_button_" + current_ingredient_id;
@@ -117,7 +120,18 @@
             let prev_button = document.getElementById(prev_button_id);
             prev_button.innerHTML = "-";
         }
-
+    }
+    
+    function add_preparation_step(){
+        let preparations = document.getElementById("preparation");
+        
+        // let add_button = document.createElement("button");
+        // add_button.innerHTML = "+";
+        // add_button.id = "ingredient_button_" + incremented_ingredient_id;
+        // add_button.type = "button";
+        // add_button.setAttribute("onClick", "add_ingredient()");
+        // ingredient.appendChild(add_button);
+        // ingredient_list.appendChild(ingredient);
     }
     add_ingredient();
 </script>
