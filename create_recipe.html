@@ -5,22 +5,55 @@
         <meta charset="utf-8" />
     </head>
     <body>
-        <h3>Ingredients</h3>
-        <form id="recipeForm">
-            <div>
+        <div>
+            <form id="recipeForm">
+                <h3>Recipe details</h3>
+                <div>
+                    <label for="recipeTitle">Title:</label>
+                    <input class="recipeDetails" name="recipeTitle" data-attribute_name="title">
+                </div>
+                <div>
+                    <label for="recipeDescription">Description:</label>
+                    <input class="recipeDetails" name="recipeDescription" data-attribute_name="description">
+                </div>
+                <div>
+                    <label for="preparationTime">Preparation time:</label>
+                    <input class="recipeDetails" name="preparationTime" data-attribute_name="prep_time">
+                </div>
+                <div>
+                    <label for="CookTime">Number of portions:</label>
+                    <input class="recipeDetails" name="CookTime" data-attribute_name="cook_time">
+                </div>
+                <div>
+                    <label for="hungryPeopleCount">Number of portions:</label>
+                    <input class="recipeDetails" name="hungryPeopleCount" data-attribute_name="portion_size">
+                </div>
+                <div>
+                    <label for="recipeImage"></label>Upload picture here<button>Open</button>
+                </div>
+                <h3>Ingredients</h3>
                 <ul id="ingredient_list"></ul>
-            </div>
-            <input type="submit" value="Save">
-        </form>
+                <h3>Preparation</h3>
+                <ol id="preparation"></ol>
+                <h3>Protips</h3>
+                <ul id="pro_tips"></ul>
+                <input type="submit" value="Save">
+            </form>
+        </div>
     </body>
 </html>
 
 <script>
-    // Access the form element...
+    // Access the form element
     let form = document.getElementById("recipeForm");
     let recipe = {};
     form.onsubmit = function(event){
         event.preventDefault();
+        // Get recipe details
+        recipeDetails = document.getElementsByClassName("recipeDetails");
+        for (let recipeDetail of recipeDetails){
+            recipe[recipeDetail.dataset.attribute_name] = recipeDetail.value;
+        }
         // Get ingredients
         let ingredients = [];
         let ingredientsListItems = document.getElementById("ingredient_list").getElementsByTagName("li");
@@ -86,5 +119,5 @@
         }
 
     }
-    add_ingredient()
+    add_ingredient();
 </script>
