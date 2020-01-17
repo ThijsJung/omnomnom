@@ -5,22 +5,40 @@
         <meta charset="utf-8" />
     </head>
     <body>
-        <form action="/my-handling-form-page" method="post">
-            <h3>Ingredients</h3>
+        <h3>Ingredients</h3>
+        <form id="recipeForm">
             <div>
                 <ul id="ingredient_list"></ul>
             </div>
-            <button type="submit">Save</button>
+            <input type="submit" value="Save">
         </form>
     </body>
 </html>
 
 <script>
-    function success(){ console.log("Yeeei")};
+    // Access the form element...
+    let form = document.getElementById("recipeForm");
+    let recipe = {};
+    form.onsubmit = function(event){
+        event.preventDefault();
+        // Get ingredients
+        let ingredients = [];
+        let ingredientsListItems = document.getElementById("ingredient_list").getElementsByTagName("li");
+        for (let ingredientLi of ingredientsListItems) {
+            let ingredientInputs = ingredientLi.getElementsByTagName("input");
+            let ingredient = {};
+            for (let ingredientInput of ingredientInputs) {
+                if (ingredientInput.value !== "") {
+                    ingredient[ingredientInput.name] = ingredientInput.value;
+                }
+            }
+            ingredients.push(ingredient);
+        }
+        recipe["ingredients"] = ingredients;
 
-    function create_ingredient_item(ingredient_id){
-        console.log(ingredient_id)
-    }
+        console.log(recipe);
+    };
+
     function add_ingredient(){
         let ingredient_list = document.getElementById("ingredient_list");
         let current_ingredient_id = ingredient_list.getElementsByTagName("li").length;
@@ -48,7 +66,7 @@
             let ingredient_input = document.createElement("input");
             ingredient_input.id = next_ingredient_id;
             ingredient_input.setAttribute("type", "text");
-            ingredient_input.setAttribute("name", next_ingredient_id);
+            ingredient_input.setAttribute("name", element.label_name);
             ingredient.appendChild(ingredient_input);
         });
         let add_button = document.createElement("button");
@@ -68,6 +86,5 @@
         }
 
     }
-    console.log("Init");
     add_ingredient()
 </script>
