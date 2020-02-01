@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const ingredientTemplate = document.querySelector('#ingredient');
     const addIngredientButton = document.getElementById("add_ingredient_button");
 
-    const preparations = document.getElementById("preparation");
-    const preparationTemplate = document.querySelector('#preparation_step');
-    const addPreparationButton = document.getElementById("add_preparation_button");
+    const instructions = document.getElementById("instructions");
+    const instructionTemplate = document.querySelector('#instruction');
+    const addInstructionButton = document.getElementById("add_instruction_button");
 
     const proTips = document.getElementById("pro_tips");
     const proTipTemplate = document.querySelector('#pro_tip');
@@ -54,24 +54,24 @@ document.addEventListener('DOMContentLoaded', function () {
         ingredientListItem.remove();
     }
 
-    function addPreparationStep(){
-        let clone = preparationTemplate.content.cloneNode(true);
+    function addInstruction(){
+        let clone = instructionTemplate.content.cloneNode(true);
         // Add id to list item so it can be deleted.
-        let preparationId = "preparation_" + preparations.getElementsByTagName("li").length;
-        clone.querySelector("li").id = preparationId;
-        clone.querySelector("button").addEventListener("click", () => { deletePreparationStep(preparationId); }, false);
-        preparations.appendChild(clone);
+        let instructionId = "instruction_" + instructions.getElementsByTagName("li").length;
+        clone.querySelector("li").id = instructionId;
+        clone.querySelector("button").addEventListener("click", () => { deleteInstruction(instructionId); }, false);
+        instructions.appendChild(clone);
     }
 
-    function deletePreparationStep(preparationId){
-        let preparationListItem = document.getElementById(preparationId);
-        preparationListItem.remove();
+    function deleteInstruction(instructionId){
+        let instructionListItem = document.getElementById(instructionId);
+        instructionListItem.remove();
     }
 
     function addProTip(){
         let clone = proTipTemplate.content.cloneNode(true);
         // Add id to list item so it can be deleted.
-        let proTipId = "pro_tip_" + preparations.getElementsByTagName("li").length;
+        let proTipId = "pro_tip_" + proTips.getElementsByTagName("li").length;
         clone.querySelector("li").id = proTipId;
         clone.querySelector("button").addEventListener("click", () => { deleteProTip(proTipId); }, false);
         proTips.appendChild(clone);
@@ -83,10 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     addIngredient();
-    addPreparationStep();
+    addInstruction();
     addProTip();
     addIngredientButton.addEventListener("click", addIngredient, false);
-    addPreparationButton.addEventListener("click", addPreparationStep, false);
+    addInstructionButton.addEventListener("click", addInstruction, false);
     addProTipButton.addEventListener("click", addProTip, false);
     form.addEventListener("submit", saveRecipe, false);
 });
