@@ -72,10 +72,12 @@
 </html>
 
 <script>
-    // Access the form element
-    let form = document.getElementById("recipeForm");
-    let recipe = {};
-    form.onsubmit = function(event){
+    const form = document.getElementById("recipeForm");
+    const ingredient_list = document.getElementById("ingredient_list");
+    const add_ingredient_button = document.getElementById("add_ingredient_button");
+
+    function saveRecipe(event){
+        let recipe = {};
         event.preventDefault();
         // Get recipe details
         recipeDetails = document.getElementsByClassName("recipeDetails");
@@ -102,7 +104,6 @@
     };
 
     function addIngredient(){
-        let ingredient_list = document.getElementById("ingredient_list");
         let ingredient_template = document.querySelector('#ingredient');
         let clone = ingredient_template.content.cloneNode(true);
         // Add id to list item so it can be deleted.
@@ -129,6 +130,6 @@
         // ingredient_list.appendChild(ingredient);
     }
     addIngredient();
-    const add_ingredient_button = document.getElementById("add_ingredient_button");
     add_ingredient_button.addEventListener("click", addIngredient, false);
+    form.addEventListener("submit", saveRecipe, false);
 </script>
