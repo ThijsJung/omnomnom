@@ -63,7 +63,9 @@
                 <input name="ingredient_quantity" type="number" required>
                 <label for="ingredient_unit">Unit:</label>
                 <input name="ingredient_unit">
-                <button><img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient"></button>
+                <button type="button">
+                    <img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient">
+                </button>
             </li>
         </template>
     </body>
@@ -103,9 +105,16 @@
         let ingredient_list = document.getElementById("ingredient_list");
         let ingredient_template = document.querySelector('#ingredient');
         let clone = ingredient_template.content.cloneNode(true);
-        let current_ingredient_id = ingredient_list.getElementsByTagName("li").length;
-        clone.querySelector("li").id = "ingredient_" + current_ingredient_id;
+        // Add id to list item so it can be deleted.
+        let ingredient_id = "ingredient_" + ingredient_list.getElementsByTagName("li").length;
+        clone.querySelector("li").id = ingredient_id;
+        clone.querySelector("button").addEventListener("click", () => { deleteIngredient(ingredient_id); }, false);
         ingredient_list.appendChild(clone);
+    }
+
+    function deleteIngredient(ingredient_id){
+        let ingredientListItem = document.getElementById(ingredient_id);
+        ingredientListItem.remove();
     }
     
     function add_preparation_step(){
