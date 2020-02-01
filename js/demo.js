@@ -1,3 +1,4 @@
+var baseUrl = 'https://www.thijsjung.nl/omnomnom/';
 var urlParams = new URLSearchParams(window.location.search);
 var recipeId = urlParams.get('recipe_id');
 var recipeData = null;
@@ -26,6 +27,10 @@ function fill_recipe_description(title, description){
     let recipe_description_el = document.createTextNode(description);
     recipe_description.appendChild(recipe_description_el);
 }
+
+function get_and_fill_ingredients(recipeId, hungry_people_count){
+    var url = baseUrl + 'recipes/' + recipeId + ".json";
+    callAPI(url, fill_ingredients);
 
 function recalculate_ingredients(hungry_people_count){
     fill_ingredients(recipeData.ingredients, recipeData.portion_size, hungry_people_count);
@@ -90,19 +95,19 @@ function callAPI(url, cFunction) {
 }
 
 function get_recipe_data(recipe_id){
-    var url = 'https://www.thijsjung.nl/omnomnom/recipes/' + recipe_id + ".json";
+    var url = baseUrl + 'recipes/' + recipe_id + ".json";
     callAPI(url, load_recipe);
 }
 
 function load_recipe_list(){
-    var url = 'https://www.thijsjung.nl/omnomnom/recipes/recipes.json';
+    var url = baseUrl + 'recipes/recipes.json';
     callAPI(url, function(response){
         var recipes = response;
         for (var i = 0; i < recipes.length; i++) {
             var recipe = recipes[i];
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = 'recipe.html?recipe_id=' + recipe.id;
+            a.href = baseUrl + 'recipe.html?recipe_id=' + recipe.id;
             a.textContent = recipe.name;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);

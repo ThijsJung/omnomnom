@@ -7,26 +7,83 @@
         <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
         <link rel="manifest" href="img/favicon/site.webmanifest">
+        <script type="text/javascript" src="js/create_recipe.js"></script>
     </head>
     <body>
-        <form action="/my-handling-form-page" method="post">
-            <ul>
-                <li>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="user_name">
-                </li>
-                <li>
-                <label for="mail">E-mail:</label>
-                <input type="email" id="mail" name="user_mail">
-                </li>
-                <li>
-                <label for="msg">Message:</label>
-                <textarea id="msg" name="user_message"></textarea>
-                </li>
-                <li class="button">
-                        <button type="submit">Send your message</button>
-                      </li>
-            </ul>
+        <div>
+            <a href="index.html"><h1>Omnomnom</h1></a>
+        </div>
+        <div>
+            <form id="recipeForm">
+                <h3>Recipe details</h3>
+                <div>
+                    <label for="recipeTitle">Title:</label>
+                    <input class="recipeDetails" name="recipeTitle" data-attribute_name="title">
+                </div>
+                <div>
+                    <label for="recipeDescription">Description:</label>
+                    <textarea cols="30" rows="8" class="recipeDetails" name="recipeDescription" data-attribute_name="description"></textarea>
+                </div>
+                <div>
+                    <label for="preparationTime">Preparation time (hour:minute):</label>
+                    <input class="recipeDetails" name="preparationTime" data-attribute_name="prep_time" type="time">
+                </div>
+                <div>
+                    <label for="CookTime">Cooking time (hour:minute)</label>
+                    <input class="recipeDetails" name="CookTime" data-attribute_name="cook_time" type="time">
+                </div>
+                <div>
+                    <label for="hungryPeopleCount">Number of portions:</label>
+                    <input class="recipeDetails" name="hungryPeopleCount" data-attribute_name="portion_size" type="number">
+                </div>
+                <div>
+                    <label for="recipeImage">Add picture</label>
+                    <input name="recipeImage" data-attribute_name="image_url" type="file">
+                </div>
+                <div>
+                    <h3>Ingredients</h3>
+                    <ul id="ingredient_list"></ul>
+                    <button type="button" id="add_ingredient_button">Add ingredient</button>
+                    <h3>Instructions</h3>
+                    <ol id="instructions"></ol>
+                    <button type="button" id="add_instruction_button">Add instruction</button>
+                    <h3>Protips</h3>
+                    <ul id="pro_tips"></ul>
+                    <button type="button" id="add_pro_tip_button">Add pro tip</button>
+                </div>
+                <input type="submit" value="Save">
             </form>
+        </div>
+        <div id="result"></div>
+
+        <template id="ingredient">
+            <li>
+                <label for="ingredient_name">Ingredient name:</label>
+                <input name="ingredient_name" required>
+                <label for="ingredient_quantity">Amount:</label>
+                <input name="ingredient_quantity" type="number" required>
+                <label for="ingredient_unit">Unit:</label>
+                <input name="ingredient_unit">
+                <button type="button">
+                    <img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient">
+                </button>
+            </li>
+        </template>
+        <template id="instruction">
+            <li>
+                <textarea cols="100" rows="1" ></textarea>
+                <button type="button">
+                    <img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient">
+                </button>
+            </li>
+        </template>
+        <template id="pro_tip">
+            <li>
+                <textarea cols="100" rows="1"></textarea>
+                <button type="button">
+                    <img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient">
+                </button>
+            </li>
+        </template>
     </body>
 </html>
