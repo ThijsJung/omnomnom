@@ -1,7 +1,7 @@
 push-www:
-	push-html
-	push-css
-	push-js
+	$(MAKE) push-html
+	$(MAKE) push-css
+	$(MAKE) push-js
 
 push-html:
 	aws s3 cp . $(SITE_BUCKET) --recursive --exclude "*" --include "*.html"
