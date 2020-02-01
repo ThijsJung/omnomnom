@@ -6,6 +6,9 @@
     </head>
     <body>
         <div>
+            <a href="index.html"><h1>Omnomnom</h1></a>
+        </div>
+        <div>
             <form id="recipeForm">
                 <h3>Recipe details</h3>
                 <div>
@@ -34,6 +37,7 @@
                 </div>
                 <h3>Ingredients</h3>
                 <ul id="ingredient_list"></ul>
+                <button type="button" id="add_ingredient_button">Add ingredient</button>
                 <h3>Preparation</h3>
                 <ol id="preparation">
                     <li>
@@ -50,6 +54,18 @@
             </form>
         </div>
         <div id="result"></div>
+
+        <template id="ingredient">
+            <li>
+                <label for="ingredient_name">Ingredient name:</label>
+                <input name="ingredient_name" required>
+                <label for="ingredient_quantity">Amount:</label>
+                <input name="ingredient_quantity" type="number" required>
+                <label for="ingredient_unit">Unit:</label>
+                <input name="ingredient_unit">
+                <button><img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient"></button>
+            </li>
+        </template>
     </body>
 </html>
 
@@ -83,51 +99,13 @@
         result_div.innerHTML = "Saving your recipe is not yet supported. Here's the JSON" + "<br>" + JSON.stringify(recipe);
     };
 
-    function add_ingredient(){
+    function addIngredient(){
         let ingredient_list = document.getElementById("ingredient_list");
+        let ingredient_template = document.querySelector('#ingredient');
+        let clone = ingredient_template.content.cloneNode(true);
         let current_ingredient_id = ingredient_list.getElementsByTagName("li").length;
-        let incremented_ingredient_id = current_ingredient_id + 1;
-        console.log(incremented_ingredient_id);
-        
-        // Create ingredient list item
-        let ingredient = document.createElement("li");
-
-        let ingredient_fields = [
-            {"ui_name": "Ingredient", "label_name": "name"},
-            {"ui_name": "Amount", "label_name": "quantity"},
-            {"ui_name": "Unit", "label_name": "unit"}
-        ];
-        // Create three fields for every attribute of the ingredient
-        ingredient_fields.forEach(function(element){
-            let next_ingredient_id = "ingredient_" + element.label_name + "_" + incremented_ingredient_id;
-            // Create ingredient label
-            let ingredient_label = document.createElement("label");
-            ingredient_label.htmlFor = next_ingredient_id;
-            ingredient_label.innerHTML = element.ui_name + ":";
-            ingredient.appendChild(ingredient_label);
-            
-            // Create ingredient text input
-            let ingredient_input = document.createElement("input");
-            ingredient_input.id = next_ingredient_id;
-            ingredient_input.setAttribute("type", "text");
-            ingredient_input.setAttribute("name", element.label_name);
-            ingredient.appendChild(ingredient_input);
-        });
-        let add_button = document.createElement("button");
-        add_button.innerHTML = "+";
-        add_button.id = "ingredient_button_" + incremented_ingredient_id;
-        add_button.type = "button";
-        add_button.setAttribute("onClick", "add_ingredient()");
-        ingredient.appendChild(add_button);
-        ingredient_list.appendChild(ingredient);
-        
-        // Turn + on previous item into -
-        if(incremented_ingredient_id > 1){
-            let prev_button_id = "ingredient_button_" + current_ingredient_id;
-            console.log(prev_button_id);
-            let prev_button = document.getElementById(prev_button_id);
-            prev_button.innerHTML = "-";
-        }
+        clone.querySelector("li").id = "ingredient_" + current_ingredient_id;
+        ingredient_list.appendChild(clone);
     }
     
     function add_preparation_step(){
@@ -141,5 +119,7 @@
         // ingredient.appendChild(add_button);
         // ingredient_list.appendChild(ingredient);
     }
-    add_ingredient();
+    addIngredient();
+    const add_ingredient_button = document.getElementById("add_ingredient_button");
+    add_ingredient_button.addEventListener("click", addIngredient, false);
 </script>
