@@ -87,11 +87,12 @@
     const form = document.getElementById("recipeForm");
 
     const ingredientList = document.getElementById("ingredient_list");
+    const ingredientTemplate = document.querySelector('#ingredient');
     const addIngredientButton = document.getElementById("add_ingredient_button");
 
     const preparations = document.getElementById("preparation");
     const preparationTemplate = document.querySelector('#preparation_step');
-    const add_preparation_button = document.getElementById("add_preparation_button");
+    const addPreparationButton = document.getElementById("add_preparation_button");
 
     const proTips = document.getElementById("pro_tips");
     const proTipTemplate = document.querySelector('#pro_tip');
@@ -120,17 +121,16 @@
         }
         recipe["ingredients"] = ingredients;
 
-        let result_div = document.getElementById("result");
-        result_div.innerHTML = "Saving your recipe is not yet supported. Here's the JSON" + "<br>" + JSON.stringify(recipe);
+        let resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "Saving your recipe is not yet supported. Here's the JSON" + "<br>" + JSON.stringify(recipe);
     };
 
     function addIngredient(){
-        let ingredient_template = document.querySelector('#ingredient');
-        let clone = ingredient_template.content.cloneNode(true);
+        let clone = ingredientTemplate.content.cloneNode(true);
         // Add id to list item so it can be deleted.
-        let ingredient_id = "ingredient_" + ingredientList.getElementsByTagName("li").length;
-        clone.querySelector("li").id = ingredient_id;
-        clone.querySelector("button").addEventListener("click", () => { deleteIngredient(ingredient_id); }, false);
+        let ingredientId = "ingredient_" + ingredientList.getElementsByTagName("li").length;
+        clone.querySelector("li").id = ingredientId;
+        clone.querySelector("button").addEventListener("click", () => { deleteIngredient(ingredientId); }, false);
         ingredientList.appendChild(clone);
     }
 
@@ -170,8 +170,8 @@
     addIngredient();
     addPreparationStep();
     addProTip();
-    add_ingredient_button.addEventListener("click", addIngredient, false);
-    add_preparation_button.addEventListener("click", addPreparationStep, false);
+    addIngredientButton.addEventListener("click", addIngredient, false);
+    addPreparationButton.addEventListener("click", addPreparationStep, false);
     addProTipButton.addEventListener("click", addProTip, false);
     form.addEventListener("submit", saveRecipe, false);
 </script>
