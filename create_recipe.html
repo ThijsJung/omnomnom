@@ -35,21 +35,17 @@
                     <label for="recipeImage">Add picture</label>
                     <input name="recipeImage" data-attribute_name="image_url" type="file">
                 </div>
-                <h3>Ingredients</h3>
-                <ul id="ingredient_list"></ul>
-                <button type="button" id="add_ingredient_button">Add ingredient</button>
-                <h3>Preparation</h3>
-                <ol id="preparation">
-                    <li>
-                        <textarea cols="30" rows="1" class="recipePreparation"></textarea><button type="button">+</button>
-                    </li>
-                </ol>
-                <h3>Protips</h3>
-                <ul id="pro_tips">
-                    <li>
-                        <textarea cols="30" rows="1" class="recipeProTips"></textarea><button type="button">+</button>
-                    </li>
-                </ul>
+                <div>
+                    <h3>Ingredients</h3>
+                    <ul id="ingredient_list"></ul>
+                    <button type="button" id="add_ingredient_button">Add ingredient</button>
+                    <h3>Preparation</h3>
+                    <ol id="preparation"></ol>
+                    <button type="button" id="add_preparation_button">Add ingredient</button>
+                    <h3>Protips</h3>
+                    <ul id="pro_tips"></ul>
+                    <button type="button" id="add_pro_tip_button">Add ingredient</button>
+                </div>
                 <input type="submit" value="Save">
             </form>
         </div>
@@ -68,17 +64,42 @@
                 </button>
             </li>
         </template>
+        <template id="preparation_step">
+            <li>
+                <textarea cols="100" rows="1" class="recipePreparation"></textarea>
+                <button type="button">
+                    <img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient">
+                </button>
+            </li>
+        </template>
+        <template id="pro_tip">
+            <li>
+                <textarea cols="100" rows="1" class="proTip"></textarea>
+                <button type="button">
+                    <img width="12" height="12" src="img/delete-bin-64px.png" alt="Delete ingredient">
+                </button>
+            </li>
+        </template>
     </body>
 </html>
 
 <script>
     const form = document.getElementById("recipeForm");
-    const ingredient_list = document.getElementById("ingredient_list");
-    const add_ingredient_button = document.getElementById("add_ingredient_button");
+
+    const ingredientList = document.getElementById("ingredient_list");
+    const addIngredientButton = document.getElementById("add_ingredient_button");
+
+    const preparations = document.getElementById("preparation");
+    const preparationTemplate = document.querySelector('#preparation_step');
+    const add_preparation_button = document.getElementById("add_preparation_button");
+
+    const proTips = document.getElementById("pro_tips");
+    const proTipTemplate = document.querySelector('#pro_tip');
+    const addProTipButton = document.getElementById("add_pro_tip_button");
 
     function saveRecipe(event){
-        let recipe = {};
         event.preventDefault();
+        let recipe = {};
         // Get recipe details
         recipeDetails = document.getElementsByClassName("recipeDetails");
         for (let recipeDetail of recipeDetails){
@@ -107,10 +128,10 @@
         let ingredient_template = document.querySelector('#ingredient');
         let clone = ingredient_template.content.cloneNode(true);
         // Add id to list item so it can be deleted.
-        let ingredient_id = "ingredient_" + ingredient_list.getElementsByTagName("li").length;
+        let ingredient_id = "ingredient_" + ingredientList.getElementsByTagName("li").length;
         clone.querySelector("li").id = ingredient_id;
         clone.querySelector("button").addEventListener("click", () => { deleteIngredient(ingredient_id); }, false);
-        ingredient_list.appendChild(clone);
+        ingredientList.appendChild(clone);
     }
 
     function deleteIngredient(ingredient_id){
@@ -118,18 +139,39 @@
         ingredientListItem.remove();
     }
     
-    function add_preparation_step(){
-        let preparations = document.getElementById("preparation");
-        
-        // let add_button = document.createElement("button");
-        // add_button.innerHTML = "+";
-        // add_button.id = "ingredient_button_" + incremented_ingredient_id;
-        // add_button.type = "button";
-        // add_button.setAttribute("onClick", "add_ingredient()");
-        // ingredient.appendChild(add_button);
-        // ingredient_list.appendChild(ingredient);
+    function addPreparationStep(){
+        let clone = preparationTemplate.content.cloneNode(true);
+        // Add id to list item so it can be deleted.
+        let preparationId = "preparation_" + preparations.getElementsByTagName("li").length;
+        clone.querySelector("li").id = preparationId;
+        clone.querySelector("button").addEventListener("click", () => { deletePreparationStep(preparationId); }, false);
+        preparations.appendChild(clone);
     }
+
+    function deletePreparationStep(preparationId){
+        let preparationListItem = document.getElementById(preparationId);
+        preparationListItem.remove();
+    }
+
+    function addProTip(){
+        let clone = proTipTemplate.content.cloneNode(true);
+        // Add id to list item so it can be deleted.
+        let proTipId = "pro_tip_" + preparations.getElementsByTagName("li").length;
+        clone.querySelector("li").id = proTipId;
+        clone.querySelector("button").addEventListener("click", () => { deleteProTip(proTipId); }, false);
+        proTips.appendChild(clone);
+    }
+
+    function deleteProTip(proTipId){
+        let proTipListItem = document.getElementById(proTipId);
+        proTipListItem.remove();
+    }
+
     addIngredient();
+    addPreparationStep();
+    addProTip();
     add_ingredient_button.addEventListener("click", addIngredient, false);
+    add_preparation_button.addEventListener("click", addPreparationStep, false);
+    addProTipButton.addEventListener("click", addProTip, false);
     form.addEventListener("submit", saveRecipe, false);
 </script>
