@@ -4,6 +4,7 @@ var recipeId = urlParams.get('recipe_id');
 var recipeData = null;
 
 var default_hungry_people_count = 4;
+const default_portion_size = 4;
 
 document.addEventListener('DOMContentLoaded', function () {
     get_recipe_data(recipeId);
@@ -42,6 +43,9 @@ function recalculate_ingredients(hungry_people_count){
 }
 
 function fill_ingredients(ingredients, portion_size, hungry_people_count){
+    if (!portion_size){
+        portion_size = default_portion_size;
+    }
     let ratio = hungry_people_count / portion_size;
     document.getElementById("ingredients_list").innerHTML = "";
     for (let i = 0; i < ingredients.length; i++) {
