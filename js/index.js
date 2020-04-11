@@ -1,20 +1,21 @@
-const baseUrl = 'https://www.thijsjung.nl/omnomnom/';
-
+const baseUrl = 'https://hdw3xwldw0.execute-api.eu-west-1.amazonaws.com/omnomnom-API-prod';
+const apiKey = getApiKey();
 // Callback function
 function callAPI(url, cFunction) {
     var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader('x-api-key', apiKey);
+    xhttp.send();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var responseJSON = JSON.parse(xhttp.responseText);
             cFunction(responseJSON);
         }
     };
-    xhttp.open("GET", url, true);
-    xhttp.send();
 }
 
 function load_recipe_list(){
-    var url = baseUrl + 'recipes/recipes.json';
+    var url = baseUrl + '/recipes';
     callAPI(url, function(response){
         var recipes = response;
         for (var i = 0; i < recipes.length; i++) {
@@ -22,7 +23,7 @@ function load_recipe_list(){
             var li = document.createElement("li");
             var a = document.createElement("a");
             a.href = baseUrl + 'recipe.html?recipe_id=' + recipe.id;
-            a.textContent = recipe.name;
+            a.textContent = recipe.title;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);
         }
@@ -46,4 +47,9 @@ function fill_period_name(){
     Array.prototype.forEach.call(elements, function(el) {
         el.textContent = period_name;
     });
+}
+
+function getApiKey() {
+	var urlParams = new URLSearchParams(window.location.search);
+	return urlParams.get('key');
 }
