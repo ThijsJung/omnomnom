@@ -6,6 +6,7 @@ const apiKey = urlParams.get('key');
 
 const portionSizeSelector = document.getElementById("portion_size");
 const copyIngredientsButton = document.getElementById("copy_ingredients_button");
+const homeButton = document.getElementById("home_button");
 
 // Initialise recipeData so it can be stored locally and used to recalculate the ratio of ingredients.
 let localRecipeData = null;
@@ -139,6 +140,7 @@ function copyToClipboard(event){
 
 document.addEventListener('DOMContentLoaded', function () {
     getRecipeData(recipeId);
-    portionSizeSelector.addEventListener("change", recalculateIngredients, false)
-    copyIngredientsButton.addEventListener("click", copyToClipboard, false)
+    portionSizeSelector.addEventListener("change", recalculateIngredients, false);
+    copyIngredientsButton.addEventListener("click", copyToClipboard, false);
+    homeButton.href += "?key=" + apiKey;
 });
