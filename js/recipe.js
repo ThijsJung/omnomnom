@@ -1,9 +1,8 @@
 const baseApiUrl = 'https://hdw3xwldw0.execute-api.eu-west-1.amazonaws.com/omnomnom-API-prod';
-const apiKey = getApiKey();
 
-var urlParams = new URLSearchParams(window.location.search);
-var recipeId = urlParams.get('recipe_id');
-var recipeData = null;
+const urlParams = new URLSearchParams(window.location.search);
+const recipeId = urlParams.get('recipe_id');
+const apiKey = urlParams.get('key');
 
 var default_hungry_people_count = 4;
 const default_portion_size = 4;
@@ -89,7 +88,7 @@ function fillProTips(pro_tips){
         const t = document.createTextNode(pro_tips[i]);
         proTips.appendChild(li).appendChild(t);
     }
-    proTipsDiv.appendChild(li);
+    proTipsDiv.appendChild(proTips);
 }
 
 function addImage(imageUrl){
@@ -137,9 +136,4 @@ function copyToClipboard(){
     /* Copy the text inside the text field */
     document.execCommand("copy");
     document.body.removeChild(textArea);
-}
-
-function getApiKey() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('key');
 }
