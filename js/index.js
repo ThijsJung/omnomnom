@@ -55,3 +55,6 @@ function getApiKey() {
 	var urlParams = new URLSearchParams(window.location.search);
 	return urlParams.get('key');
 }
+
+load_recipe_list();
+fill_period_name();
