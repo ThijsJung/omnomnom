@@ -17,17 +17,16 @@ function get_recipe_data(recipe_id){
     callAPI(url, load_recipe);
 }
 
-function load_recipe(recipe_data){
-    console.log(recipe_data);
-    recipeData = recipe_data;
-    fill_recipe_description(recipe_data.title, recipe_data.description)
-    fill_ingredients(recipe_data.ingredients, recipe_data.portion_size, default_hungry_people_count);
-    fill_instructions(recipe_data.instructions);
-    if('pro_tips' in recipe_data){
-        fill_pro_tips(recipe_data.pro_tips);
+function load_recipe(recipeData){
+    console.log(recipeData);
+    fill_recipe_description(recipeData.title, recipeData.description)
+    fill_ingredients(recipeData.ingredients, recipeData.portion_size, default_hungry_people_count);
+    fill_instructions(recipeData.instructions);
+    if('pro_tips' in recipeData){
+        fillProTips(recipeData.pro_tips);
     }
-    if ('image_url' in recipe_data) {
-        add_image(recipe_data.image_url);
+    if ('image_url' in recipeData) {
+        addImage(recipeData.image_url);
     }
 }
 
@@ -78,21 +77,27 @@ function fill_instructions(instructions){
     }
 }
 
-function fill_pro_tips(pro_tips){
-    for (var i = 0; i < pro_tips.length; i++) {
-        var li = document.createElement("li");
-        var t = document.createTextNode(pro_tips[i]);
-        li.appendChild(t);
-        document.getElementById("pro_tips").appendChild(li);
+function fillProTips(pro_tips){
+    const proTipsDiv = document.getElementById("pro_tips");
+    const proTipsHeader = document.createElement("h3")
+    proTipsHeader.innerText = "Pro Tips";
+    proTipsDiv.appendChild(proTipsHeader);
+
+    const proTips = document.createElement("ul");
+    for (let i = 0; i < pro_tips.length; i++) {
+        const li = document.createElement("li");
+        const t = document.createTextNode(pro_tips[i]);
+        proTips.appendChild(li).appendChild(t);
     }
+    proTipsDiv.appendChild(li);
 }
 
-function add_image(imageUrl){
-    let image_el = document.createElement("img");
-    image_el.src = imageUrl;
-    image_el.alt = "Recipe picture";
-    image_el.width = 500;
-    document.getElementById("recipe_image_container").appendChild(image_el);
+function addImage(imageUrl){
+    let image = document.createElement("img");
+    image.src = imageUrl;
+    image.alt = "Recipe picture";
+    image.width = 500;
+    document.getElementById("recipe_image_container").appendChild(image);
 }
 
 // Callback function
@@ -135,6 +140,6 @@ function copyToClipboard(){
 }
 
 function getApiKey() {
-	var urlParams = new URLSearchParams(window.location.search);
-	return urlParams.get('key');
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('key');
 }
