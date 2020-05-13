@@ -4,12 +4,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const recipeId = urlParams.get('recipe_id');
 const apiKey = urlParams.get('key');
 
-var default_hungry_people_count = 4;
-const default_portion_size = 4;
+const portionSizeSelector = document.getElementById("portion_size");
 
-document.addEventListener('DOMContentLoaded', function () {
-    get_recipe_data(recipeId);
-});
+// Initialise recipeData so it can be stored locally and used to recalculate the ratio of ingredients.
+let localRecipeData = null;
+const default_hungry_people_count = 4;
+const default_portion_size = 4;
 
 function get_recipe_data(recipe_id){
     var url = baseApiUrl + '/recipes/' + recipe_id;
@@ -41,14 +41,12 @@ function fill_recipe_description(title, description){
     recipe_description.appendChild(recipe_description_el);
 }
 
-function recalculate_ingredients(hungry_people_count){
-    fill_ingredients(recipeData.ingredients, recipeData.portion_size, hungry_people_count);
+function recalculateIngredients(event){
+    const hungryPeopleCount = event.target.value;
+    fill_ingredients(localRecipeData.ingredients, localRecipeData.portion_size, hungryPeopleCount);
 }
 
-function fill_ingredients(ingredients, portion_size, hungry_people_count){
-    if (!portion_size){
-        portion_size = default_portion_size;
-    }
+function fill_ingredients(ingredients, portion_size = default_portion_size, hungry_people_count = default_hungry_people_count){
     let ratio = hungry_people_count / portion_size;
     document.getElementById("ingredients_list").innerHTML = "";
     for (let i = 0; i < ingredients.length; i++) {
@@ -107,8 +105,8 @@ function callAPI(url, cFunction) {
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            var responseJSON = JSON.parse(xhttp.responseText);
-            cFunction(responseJSON);
+            localRecipeData = JSON.parse(xhttp.responseText);
+            cFunction(localRecipeData);
         }
     };
 }
@@ -137,3 +135,8 @@ function copyToClipboard(){
     document.execCommand("copy");
     document.body.removeChild(textArea);
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    get_recipe_data(recipeId);
+    portionSizeSelector.addEventListener("change", recalculateIngredients, false)
+});
