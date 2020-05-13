@@ -5,13 +5,14 @@ const recipeId = urlParams.get('recipe_id');
 const apiKey = urlParams.get('key');
 
 const portionSizeSelector = document.getElementById("portion_size");
+const copyIngredientsButton = document.getElementById("copy_ingredients_button");
 
 // Initialise recipeData so it can be stored locally and used to recalculate the ratio of ingredients.
 let localRecipeData = null;
 const defaultHungryPeopleCount = 4;
 const defaultPortionSize = 4;
 
-function get_recipe_data(recipe_id){
+function getRecipeData(recipe_id){
     let url = baseApiUrl + '/recipes/' + recipe_id;
     callAPI(url, load_recipe);
 }
@@ -46,9 +47,9 @@ function recalculateIngredients(event){
     fillIngredients(localRecipeData.ingredients, localRecipeData.portion_size, hungryPeopleCount);
 }
 
-function fillIngredients(ingredients, portion_size = defaultPortionSize, hungry_people_count = defaultHungryPeopleCount){
-    let ratio = hungry_people_count / portion_size;
-    document.getElementById("ingredients_list").innerHTML = "";
+function fillIngredients(ingredients, portionSize = defaultPortionSize, hungryPeopleCount = defaultHungryPeopleCount){
+    let ratio = hungryPeopleCount / portionSize;
+    document.getElementById("ingredients_list").innerHTML = "";  // TODO: Replace by removing elements?
     for (let i = 0; i < ingredients.length; i++) {
         let ingredient = ingredients[i];
         let unit = ingredient.unit;
@@ -90,7 +91,7 @@ function fillProTips(pro_tips){
 }
 
 function addImage(imageUrl){
-    let image = document.createElement("img");
+    const image = document.createElement("img");
     image.src = imageUrl;
     image.alt = "Recipe picture";
     image.width = 500;
@@ -111,7 +112,7 @@ function callAPI(url, cFunction) {
     };
 }
 
-function copyToClipboard(){
+function copyToClipboard(event){
     // Copy invisible text by creating a temporary textArea.
     let ingredients = document.getElementsByClassName("ingredient");
     let textArea = document.createElement("textarea");
@@ -137,6 +138,7 @@ function copyToClipboard(){
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    get_recipe_data(recipeId);
+    getRecipeData(recipeId);
     portionSizeSelector.addEventListener("change", recalculateIngredients, false)
+    copyIngredientsButton.addEventListener("click", copyToClipboard, false)
 });
