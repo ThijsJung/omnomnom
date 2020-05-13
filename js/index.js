@@ -45,9 +45,9 @@ function fill_period_name(){
         period_name = "midnight snack";
     }
     var elements = document.getElementsByClassName("period_name");
-    Array.prototype.forEach.call(elements, function(el) {
-        el.textContent = period_name;
-    });
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].textContent = period_name;
+    }
 }
 
 function getApiKey() {
