@@ -1,4 +1,6 @@
-const baseUrl = 'https://www.thijsjung.nl/omnomnom/';
+const baseApiUrl = 'https://hdw3xwldw0.execute-api.eu-west-1.amazonaws.com/omnomnom-API-prod';
+const apiKey = getApiKey();
+
 var urlParams = new URLSearchParams(window.location.search);
 var recipeId = urlParams.get('recipe_id');
 var recipeData = null;
@@ -10,15 +12,23 @@ document.addEventListener('DOMContentLoaded', function () {
     get_recipe_data(recipeId);
 });
 
+function get_recipe_data(recipe_id){
+    var url = baseApiUrl + '/recipes/' + recipe_id;
+    callAPI(url, load_recipe);
+}
+
 function load_recipe(recipe_data){
+    console.log(recipe_data);
     recipeData = recipe_data;
     fill_recipe_description(recipe_data.title, recipe_data.description)
     fill_ingredients(recipe_data.ingredients, recipe_data.portion_size, default_hungry_people_count);
-    fill_preparation(recipe_data.preparation);
+    fill_instructions(recipe_data.instructions);
     if('pro_tips' in recipe_data){
         fill_pro_tips(recipe_data.pro_tips);
     }
-    add_image(recipe_data.image_url);
+    if ('image_url' in recipe_data) {
+        add_image(recipe_data.image_url);
+    }
 }
 
 function fill_recipe_description(title, description){
@@ -31,11 +41,6 @@ function fill_recipe_description(title, description){
 
     let recipe_description_el = document.createTextNode(description);
     recipe_description.appendChild(recipe_description_el);
-}
-
-function get_and_fill_ingredients(recipeId, hungry_people_count){
-    var url = baseUrl + 'recipes/' + recipeId + ".json";
-    callAPI(url, fill_ingredients);
 }
 
 function recalculate_ingredients(hungry_people_count){
@@ -64,12 +69,12 @@ function fill_ingredients(ingredients, portion_size, hungry_people_count){
     }
 }
 
-function fill_preparation(preparation){
-    for (var i = 0; i < preparation.length; i++) {
-        var li = document.createElement("li");
-        var t = document.createTextNode(preparation[i]);
+function fill_instructions(instructions){
+    for (let i = 0; i < instructions.length; i++) {
+        const li = document.createElement("li");
+        const t = document.createTextNode(instructions[i]);
         li.appendChild(t);
-        document.getElementById("preparation").appendChild(li);
+        document.getElementById("instructions").appendChild(li);
     }
 }
 
@@ -93,19 +98,15 @@ function add_image(imageUrl){
 // Callback function
 function callAPI(url, cFunction) {
     var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader('x-api-key', apiKey);
+    xhttp.send();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var responseJSON = JSON.parse(xhttp.responseText);
             cFunction(responseJSON);
         }
     };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
-
-function get_recipe_data(recipe_id){
-    var url = baseUrl + 'recipes/' + recipe_id + ".json";
-    callAPI(url, load_recipe);
 }
 
 function copyToClipboard(){
@@ -131,4 +132,9 @@ function copyToClipboard(){
     /* Copy the text inside the text field */
     document.execCommand("copy");
     document.body.removeChild(textArea);
+}
+
+function getApiKey() {
+	var urlParams = new URLSearchParams(window.location.search);
+	return urlParams.get('key');
 }
