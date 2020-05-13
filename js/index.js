@@ -24,7 +24,7 @@ function load_recipe_list(){
             var recipe = recipes[i];
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = baseUrl + '/recipe.html?recipe_id=' + recipe.id;
+            a.href = baseUrl + '/recipe.html?recipe_id=' + recipe.id + "&key=" + apiKey;
             a.textContent = recipe.title;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);
