@@ -8,19 +8,19 @@ const portionSizeSelector = document.getElementById("portion_size");
 
 // Initialise recipeData so it can be stored locally and used to recalculate the ratio of ingredients.
 let localRecipeData = null;
-const default_hungry_people_count = 4;
-const default_portion_size = 4;
+const defaultHungryPeopleCount = 4;
+const defaultPortionSize = 4;
 
 function get_recipe_data(recipe_id){
-    var url = baseApiUrl + '/recipes/' + recipe_id;
+    let url = baseApiUrl + '/recipes/' + recipe_id;
     callAPI(url, load_recipe);
 }
 
 function load_recipe(recipeData){
     console.log(recipeData);
-    fill_recipe_description(recipeData.title, recipeData.description)
-    fill_ingredients(recipeData.ingredients, recipeData.portion_size, default_hungry_people_count);
-    fill_instructions(recipeData.instructions);
+    fillRecipeDescription(recipeData.title, recipeData.description)
+    fillIngredients(recipeData.ingredients, recipeData.portion_size, defaultHungryPeopleCount);
+    fillInstructions(recipeData.instructions);
     if('pro_tips' in recipeData){
         fillProTips(recipeData.pro_tips);
     }
@@ -29,24 +29,24 @@ function load_recipe(recipeData){
     }
 }
 
-function fill_recipe_description(title, description){
-    let recipe_description = document.getElementById("recipe_description");
+function fillRecipeDescription(title, description){
+    const recipeDescriptionDiv = document.getElementById("recipe_description");
 
-    let recipe_title = document.createElement("h2");
-    recipe_title.innerText = title;  //TODO: Escape input
-    recipe_title.id = "recipe_title";
-    recipe_description.appendChild(recipe_title);
+    const recipeTitle = document.createElement("h2");
+    recipeTitle.innerText = title;  //TODO: Escape input
+    recipeDescriptionDiv.appendChild(recipeTitle);
 
-    let recipe_description_el = document.createTextNode(description);
-    recipe_description.appendChild(recipe_description_el);
+    let recipeDescription = document.createElement("p");
+    recipeDescription.innerText = description;
+    recipeDescriptionDiv.appendChild(recipeDescription);
 }
 
 function recalculateIngredients(event){
     const hungryPeopleCount = event.target.value;
-    fill_ingredients(localRecipeData.ingredients, localRecipeData.portion_size, hungryPeopleCount);
+    fillIngredients(localRecipeData.ingredients, localRecipeData.portion_size, hungryPeopleCount);
 }
 
-function fill_ingredients(ingredients, portion_size = default_portion_size, hungry_people_count = default_hungry_people_count){
+function fillIngredients(ingredients, portion_size = defaultPortionSize, hungry_people_count = defaultHungryPeopleCount){
     let ratio = hungry_people_count / portion_size;
     document.getElementById("ingredients_list").innerHTML = "";
     for (let i = 0; i < ingredients.length; i++) {
@@ -65,7 +65,7 @@ function fill_ingredients(ingredients, portion_size = default_portion_size, hung
     }
 }
 
-function fill_instructions(instructions){
+function fillInstructions(instructions){
     for (let i = 0; i < instructions.length; i++) {
         const li = document.createElement("li");
         const t = document.createTextNode(instructions[i]);
