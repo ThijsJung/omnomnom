@@ -1,5 +1,4 @@
 const baseApiUrl = 'https://hdw3xwldw0.execute-api.eu-west-1.amazonaws.com/omnomnom-API-prod';
-const baseUrl = 'https://thijsjung.nl/omnomnom';
 const apiKey = getApiKey();
 
 // Callback function
@@ -24,7 +23,7 @@ function load_recipe_list(){
             var recipe = recipes[i];
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = baseUrl + '/recipe.html?recipe_id=' + recipe.id + "&key=" + apiKey;
+            a.href = 'recipe.html?recipe_id=' + recipe.id + "&key=" + apiKey;
             a.textContent = recipe.title;
             li.appendChild(a);
             document.getElementById("recipe_list").appendChild(li);
